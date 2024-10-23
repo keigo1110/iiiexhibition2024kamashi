@@ -113,7 +113,7 @@ export function ExhibitionPageComponent() {
             >
               東京大学制作展2024『付いて離れて』
             </a>
-            に作品を出展しています。
+            に作品を出展します。
           </p>
         </section>
 
