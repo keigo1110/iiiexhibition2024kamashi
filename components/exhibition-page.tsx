@@ -87,7 +87,7 @@ export function ExhibitionPageComponent() {
                 transition={{ duration: 1 }}
                 className="text-5xl md:text-7xl font-bold mb-4"
               >
-                付いて離れて
+                　
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
