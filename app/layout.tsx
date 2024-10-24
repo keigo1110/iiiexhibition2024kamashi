@@ -15,10 +15,12 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "CottonSketchPenチーム",
-  description: "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。持ち運びに便利で、環境に優しい持続可能な製品を提供し、旅行時の衣類や梱包材の悩みを解決します。",
+  description:
+    "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。持ち運びに便利で、環境に優しい持続可能な製品を提供し、旅行時の衣類や梱包材の悩みを解決します。",
   openGraph: {
     title: "CottonSketchPenチーム",
-    description: "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。",
+    description:
+      "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。",
     url: "https://iiiexhibition2024kamashi.vercel.app", // 正しいURLを指定してください
     images: [
       {
@@ -39,20 +41,36 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // ここで typeof を使って型チェックを行います
+  const ogTitle =
+    typeof metadata.openGraph?.title === "string"
+      ? metadata.openGraph.title
+      : "デフォルトのタイトル";
+
+  const ogDescription =
+    typeof metadata.openGraph?.description === "string"
+      ? metadata.openGraph.description
+      : "デフォルトの説明";
+
+  const ogImage =
+    typeof metadata.openGraph?.images?.[0]?.url === "string"
+      ? metadata.openGraph.images[0].url
+      : "/default-image.jpg";
+
   return (
     <html lang="ja">
       <head>
         {/* OGPタグとFaviconの設定 */}
-        <meta name="description" content={metadata.description ?? "デフォルトの説明"} />
-        <meta property="og:title" content={metadata.openGraph?.title ?? "デフォルトのタイトル"} />
         <meta
-          property="og:description"
-          content={metadata.openGraph?.description ?? "デフォルトの説明"}
+          name="description"
+          content={metadata.description ?? "デフォルトの説明"}
         />
+        <meta property="og:title" content={ogTitle} />
+        <meta property="og:description" content={ogDescription} />
         <meta property="og:url" content={metadata.openGraph?.url ?? "https://example.com"} />
-        <meta property="og:image" content={metadata.openGraph?.images?.[0]?.url ?? "/default-image.jpg"} />
-        <meta property="og:image:width" content={metadata.openGraph?.images?.[0]?.width?.toString() ?? "800"} />
-        <meta property="og:image:height" content={metadata.openGraph?.images?.[0]?.height?.toString() ?? "600"} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="600" />
         <link rel="icon" href={metadata.icons?.icon ?? "/favicon.ico"} />
         <title>{metadata.title ?? "デフォルトのタイトル"}</title>
       </head>
