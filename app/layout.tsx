@@ -43,18 +43,18 @@ export default function RootLayout({
     <html lang="ja">
       <head>
         {/* OGPタグとFaviconの設定 */}
-        <meta name="description" content={metadata.description || "デフォルトの説明"} />
-        <meta property="og:title" content={metadata.openGraph?.title || "デフォルトのタイトル"} />
+        <meta name="description" content={metadata.description ?? "デフォルトの説明"} />
+        <meta property="og:title" content={metadata.openGraph?.title ?? "デフォルトのタイトル"} />
         <meta
           property="og:description"
-          content={metadata.openGraph?.description || "デフォルトの説明"}
+          content={metadata.openGraph?.description ?? "デフォルトの説明"}
         />
-        <meta property="og:url" content={metadata.openGraph?.url || "https://example.com"} />
-        <meta property="og:image" content={metadata.openGraph?.images?.[0]?.url || "/default-image.jpg"} />
-        <meta property="og:image:width" content={`${metadata.openGraph?.images?.[0]?.width || 800}`} />
-        <meta property="og:image:height" content={`${metadata.openGraph?.images?.[0]?.height || 600}`} />
-        <link rel="icon" href={metadata.icons?.icon || "/favicon.ico"} />
-        <title>{metadata.title || "デフォルトのタイトル"}</title>
+        <meta property="og:url" content={metadata.openGraph?.url ?? "https://example.com"} />
+        <meta property="og:image" content={metadata.openGraph?.images?.[0]?.url ?? "/default-image.jpg"} />
+        <meta property="og:image:width" content={metadata.openGraph?.images?.[0]?.width?.toString() ?? "800"} />
+        <meta property="og:image:height" content={metadata.openGraph?.images?.[0]?.height?.toString() ?? "600"} />
+        <link rel="icon" href={metadata.icons?.icon ?? "/favicon.ico"} />
+        <title>{metadata.title ?? "デフォルトのタイトル"}</title>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
