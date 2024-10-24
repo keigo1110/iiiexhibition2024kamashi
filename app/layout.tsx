@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: "CottonSketchPenチーム",
     description:
       "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。",
-    url: "https://iiiexhibition2024kamashi.vercel.app", // 正しいURLを指定してください
+    url: "https://iiiexhibition2024kamashi.vercel.app",
     images: [
       {
         url: "/public/wataame.jpeg", // OGP用の画像へのパスを指定
@@ -41,24 +41,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 型を検査しつつ、安全にアクセスする処理
-  const ogTitle =
-    typeof metadata.openGraph?.title === "string"
-      ? metadata.openGraph.title
-      : "デフォルトのタイトル";
-
-  const ogDescription =
-    typeof metadata.openGraph?.description === "string"
-      ? metadata.openGraph.description
-      : "デフォルトの説明";
-
-  // imagesが配列かオブジェクトかを確認してからアクセス
-  let ogImage = "/default-image.jpg";
-  if (Array.isArray(metadata.openGraph?.images) && metadata.openGraph?.images[0]?.url) {
-    ogImage = metadata.openGraph.images[0].url;
-  } else if (metadata.openGraph?.images?.url) {
-    ogImage = metadata.openGraph.images.url; // 配列ではない場合の処理
-  }
+  // ogImageには必ず最初の画像のURLを取り出す処理に変更
+  const ogImage = Array.isArray(metadata.openGraph?.images)
+    ? metadata.openGraph.images[0]?.url ?? "/default-image.jpg"
+    : "/default-image.jpg";
 
   return (
     <html lang="ja">
@@ -68,8 +54,8 @@ export default function RootLayout({
           name="description"
           content={metadata.description ?? "デフォルトの説明"}
         />
-        <meta property="og:title" content={ogTitle} />
-        <meta property="og:description" content={ogDescription} />
+        <meta property="og:title" content={metadata.openGraph?.title ?? "デフォルトのタイトル"} />
+        <meta property="og:description" content={metadata.openGraph?.description ?? "デフォルトの説明"} />
         <meta property="og:url" content={metadata.openGraph?.url ?? "https://example.com"} />
         <meta property="og:image" content={ogImage} />
         <meta property="og:image:width" content="800" />
