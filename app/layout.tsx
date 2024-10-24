@@ -41,23 +41,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <head>
-        <meta
-          name="description"
-          content={metadata.description ?? "デフォルトの説明"}
-        />
-        <meta property="og:title" content={metadata.openGraph?.title ?? "デフォルトのタイトル"} />
-        <meta property="og:description" content={metadata.openGraph?.description ?? "デフォルトの説明"} />
-        <meta property="og:url" content={metadata.openGraph?.url ?? "https://example.com"} />
-        <meta
-          property="og:image"
-          content={metadata.openGraph?.images?.[0]?.url || "/default-image.jpg"}
-        />
-        <meta property="og:image:width" content="800" />
-        <meta property="og:image:height" content="600" />
-        <link rel="icon" href={metadata.icons?.icon ?? "/favicon.ico"} />
-        <title>{metadata.title ?? "デフォルトのタイトル"}</title>
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
