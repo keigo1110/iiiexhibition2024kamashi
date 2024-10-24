@@ -41,7 +41,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ここで typeof を使って型チェックを行います
+  // 型を検査しつつ、安全にアクセスする処理
   const ogTitle =
     typeof metadata.openGraph?.title === "string"
       ? metadata.openGraph.title
@@ -52,10 +52,13 @@ export default function RootLayout({
       ? metadata.openGraph.description
       : "デフォルトの説明";
 
-  const ogImage =
-    typeof metadata.openGraph?.images?.[0]?.url === "string"
-      ? metadata.openGraph.images[0].url
-      : "/default-image.jpg";
+  // imagesが配列かオブジェクトかを確認してからアクセス
+  let ogImage = "/default-image.jpg";
+  if (Array.isArray(metadata.openGraph?.images) && metadata.openGraph?.images[0]?.url) {
+    ogImage = metadata.openGraph.images[0].url;
+  } else if (metadata.openGraph?.images?.url) {
+    ogImage = metadata.openGraph.images.url; // 配列ではない場合の処理
+  }
 
   return (
     <html lang="ja">
