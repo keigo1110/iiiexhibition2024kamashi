@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link';
 
 type Artwork = {
   id: number;
@@ -52,8 +53,13 @@ export function ExhibitionPageComponent() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
       <header className="bg-black bg-opacity-50 backdrop-blur-md fixed w-full z-10">
         <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-            CottonSketchPenチーム
+          <h1>
+            <Link
+              href="/"
+              className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 hover:opacity-80 transition duration-300"
+            >
+              CottonSketchPenチーム
+            </Link>
           </h1>
           <nav>
             <ul className="flex space-x-6">
