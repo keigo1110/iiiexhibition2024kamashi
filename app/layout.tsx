@@ -22,14 +22,12 @@ export const metadata: Metadata = {
     description:
       "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。",
     url: "https://iiiexhibition2024kamashi.vercel.app",
-    images: [
-      {
-        url: "/public/wataame.jpeg",
-        width: 800,
-        height: 600,
-        alt: "CottonSketchPenデバイスの画像",
-      },
-    ],
+    images: [{
+      url: "/public/wataame.jpeg",
+      width: 800,
+      height: 600,
+      alt: "CottonSketchPenデバイスの画像",
+    }],
   },
   icons: {
     icon: "/favicon.ico",
@@ -41,12 +39,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // OGP画像のデフォルトURL
-  const defaultImageUrl = "/default-image.jpg";
-
-  // OGP画像のURLを取得
-  const ogImageUrl = metadata.openGraph?.images?.[0]?.url ?? defaultImageUrl;
-
   return (
     <html lang="ja">
       <head>
@@ -57,7 +49,10 @@ export default function RootLayout({
         <meta property="og:title" content={metadata.openGraph?.title ?? "デフォルトのタイトル"} />
         <meta property="og:description" content={metadata.openGraph?.description ?? "デフォルトの説明"} />
         <meta property="og:url" content={metadata.openGraph?.url ?? "https://example.com"} />
-        <meta property="og:image" content={ogImageUrl} />
+        <meta
+          property="og:image"
+          content={metadata.openGraph?.images?.[0]?.url || "/default-image.jpg"}
+        />
         <meta property="og:image:width" content="800" />
         <meta property="og:image:height" content="600" />
         <link rel="icon" href={metadata.icons?.icon ?? "/favicon.ico"} />
