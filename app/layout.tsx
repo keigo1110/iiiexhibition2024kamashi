@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://iiiexhibition2024kamashi.vercel.app",
     images: [
       {
-        url: "/public/wataame.jpeg", // OGP用の画像へのパスを指定
+        url: "/public/wataame.jpeg",
         width: 800,
         height: 600,
         alt: "CottonSketchPenデバイスの画像",
@@ -41,15 +41,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ogImageには必ず最初の画像のURLを取り出す処理に変更
-  const ogImage = Array.isArray(metadata.openGraph?.images)
-    ? metadata.openGraph.images[0]?.url ?? "/default-image.jpg"
-    : "/default-image.jpg";
+  // OGP画像のデフォルトURL
+  const defaultImageUrl = "/default-image.jpg";
+
+  // OGP画像のURLを取得
+  const ogImageUrl = metadata.openGraph?.images?.[0]?.url ?? defaultImageUrl;
 
   return (
     <html lang="ja">
       <head>
-        {/* OGPタグとFaviconの設定 */}
         <meta
           name="description"
           content={metadata.description ?? "デフォルトの説明"}
@@ -57,7 +57,7 @@ export default function RootLayout({
         <meta property="og:title" content={metadata.openGraph?.title ?? "デフォルトのタイトル"} />
         <meta property="og:description" content={metadata.openGraph?.description ?? "デフォルトの説明"} />
         <meta property="og:url" content={metadata.openGraph?.url ?? "https://example.com"} />
-        <meta property="og:image" content={ogImage} />
+        <meta property="og:image" content={ogImageUrl} />
         <meta property="og:image:width" content="800" />
         <meta property="og:image:height" content="600" />
         <link rel="icon" href={metadata.icons?.icon ?? "/favicon.ico"} />
