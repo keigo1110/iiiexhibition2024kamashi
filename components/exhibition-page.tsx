@@ -32,10 +32,10 @@ const artworks: Artwork[] = [
 ]
 
 const members: Member[] = [
-  { id: 1, name: "岡　空来", role: "建築, 空気構造", image: "/members/oka.JPG" },
-  { id: 2, name: "金澤政宜", role: "ロボティクス, ヒューマノイドロボット", image: "/members/kanazawa.JPG" },
-  { id: 3, name: "中田裕紀", role: "コンピュータサイエンス, 群ロボット", image: "/members/nakata.JPG" },
-  { id: 4, name: "南田桂吾", role: "ロボティクス, CV", image: "/members/minamida.JPG" },
+  { id: 1, name: "岡　空来", role: "建築, 空気構造", image: "/members/oka.jpg" },
+  { id: 2, name: "金澤政宜", role: "ロボティクス, ヒューマノイドロボット", image: "/members/kanazawa.jpg" },
+  { id: 3, name: "中田裕紀", role: "コンピュータサイエンス, 群ロボット", image: "/members/nakata.jpg" },
+  { id: 4, name: "南田桂吾", role: "ロボティクス, CV", image: "/members/minamida.jpg" },
 ]
 
 export function ExhibitionPageComponent() {
