@@ -21,6 +21,13 @@ type Member = {
   image: string;
 }
 
+type Workshop = {
+  title: string;
+  image: string;
+  description: string;
+  link: string;
+}
+
 const artworks: Artwork[] = [
   { id: 1, title: "CottonSketchPen", image: "/wataame.jpeg", description: "わたあめ機は、材料を加熱し液状化したものを高速に回転させ、側面に開けた小さな穴から遠心力によって細い糸を生成する。それが空気中で冷却され、糸が絡まり固まることでわたができる。グルーガンの素材でわたを実現するデバイスを用いた製作物を展示する。わずかな量の素材から大きな形を創り出し、使わなくなったら素材に戻して、また再度別のものを創り出す。こうして、必要な時に必要なものを創り出す世界をつくりたい。", artist: "　", featured: true },
   { id: 2, title: "覗香", image: "/nozoko.jpeg", description: "香道では、香りのする木を燃やさず静かに熱を与えることで香気をそっと立ち昇らせる。この技法を活かして身近な素材に熱を与えることで、鑑賞者は日常では気にもとめない素材の香りを覗きこむ、まさに香りの虫眼鏡のような体験をする。虫たちが日常的に引き寄せられる花の香りが広がる世界を知らない。そこにあるはずの香りを増幅させることで、覗くことができる香り世界に神経を集中させてほしい。", artist: "　" },
@@ -37,6 +44,13 @@ const members: Member[] = [
   { id: 3, name: "中田裕紀", role: "コンピュータサイエンス, 群ロボット", image: "/members/nakata.jpg" },
   { id: 4, name: "南田桂吾", role: "ロボティクス, CV", image: "/members/minamida.jpg" },
 ]
+
+const workshop: Workshop = {
+  title: "CottonSketchPenワークショップ",
+  image: "/teaser.jpg",
+  description: "わたあめ機の原理を応用した新しい創作体験をしてみませんか？",
+  link: "https://cottonsketchpen.peatix.com/"
+}
 
 export function ExhibitionPageComponent() {
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
@@ -64,6 +78,7 @@ export function ExhibitionPageComponent() {
           <nav>
             <ul className="flex space-x-6">
               <li><a href="#overview" className="text-gray-300 hover:text-white transition duration-300">概要</a></li>
+              <li><a href="#workshop" className="text-gray-300 hover:text-white transition duration-300">ワークショップ</a></li>
               <li><a href="#artworks" className="text-gray-300 hover:text-white transition duration-300">作品</a></li>
               <li><a href="#members" className="text-gray-300 hover:text-white transition duration-300">メンバー</a></li>
             </ul>
@@ -123,6 +138,29 @@ export function ExhibitionPageComponent() {
           </p>
         </section>
 
+        <section id="workshop" className="container mx-auto px-4 py-16">
+          <h2 className="text-3xl font-bold text-center mb-8">ワークショップ</h2>
+          <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+            <div className="bg-gray-900">  {/* 画像の背景色を追加 */}
+              <img
+                src={workshop.image}
+                alt={workshop.title}
+                className="w-full mx-auto aspect-video object-contain p-4"
+              />
+            </div>
+            <div className="p-8">  {/* パディングを増やしてバランスを調整 */}
+              <h3 className="text-2xl font-bold mb-4">{workshop.title}</h3>
+              <p className="text-gray-300 mb-6">{workshop.description}</p>
+              <Link
+                href={workshop.link}
+                className="inline-block bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300"
+              >
+                詳細を見る
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section id="artworks" className="container mx-auto px-4 py-16">
           <h2 className="text-4xl font-bold text-center mb-16">出展作品</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -166,7 +204,9 @@ export function ExhibitionPageComponent() {
                 <motion.div
                   key={member.id}
                   initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  animate={{
+
+ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300"
                 >
