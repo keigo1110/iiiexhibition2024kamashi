@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link';
@@ -55,6 +55,11 @@ export function ExhibitionPageComponent() {
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
   const [currentSlide, setCurrentSlide] = useState(0)
 
+  // メンバーリストをシャッフルして保持
+  const shuffledMembers = useMemo(() => {
+    return [...members].sort(() => Math.random() - 0.5)
+  }, [])
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % artworks.length)
@@ -71,7 +76,7 @@ export function ExhibitionPageComponent() {
               href="/"
               className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 hover:opacity-80 transition duration-300"
             >
-              CottonSketchPenチーム
+              4ZIGEN
             </Link>
           </h1>
           <nav>
@@ -133,21 +138,21 @@ export function ExhibitionPageComponent() {
             >
               東京大学制作展2024『付いて離れて』
             </a>
-            に作品を出展します。
+            に作品を出展しました。
           </p>
         </section>
 
         <section id="workshop" className="container mx-auto px-4 py-16">
           <h2 className="text-3xl font-bold text-center mb-8">ワークショップ</h2>
           <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-            <div className="bg-gray-900">  {/* 画像の背景色を追加 */}
+            <div className="bg-gray-900">
               <img
                 src={workshop.image}
                 alt={workshop.title}
                 className="w-full mx-auto aspect-video object-contain p-4"
               />
             </div>
-            <div className="p-8">  {/* パディングを増やしてバランスを調整 */}
+            <div className="p-8">
               <h3 className="text-2xl font-bold mb-4">{workshop.title}</h3>
               <p className="text-gray-300 mb-6">{workshop.description}</p>
               <Link
@@ -199,13 +204,11 @@ export function ExhibitionPageComponent() {
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold text-center mb-16">メンバー</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-              {members.map((member, index) => (
+              {shuffledMembers.map((member, index) => (
                 <motion.div
                   key={member.id}
                   initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{
-
- opacity: 1, scale: 1 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300"
                 >
@@ -223,7 +226,7 @@ export function ExhibitionPageComponent() {
 
       <footer className="bg-black text-gray-400 py-12">
         <div className="container mx-auto px-4 text-center">
-          <p>&copy; 2024 CottonSketchPenチーム All rights reserved.</p>
+          <p>&copy; 2024 4ZIGEN All rights reserved.</p>
           <p className="mt-2">お問い合わせ: <a href="mailto:keigo-minamida@g.ecc.u-tokyo.ac.jp" className="hover:text-white transition duration-300">keigo-minamida@g.ecc.u-tokyo.ac.jp</a></p>
         </div>
       </footer>

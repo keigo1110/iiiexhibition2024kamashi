@@ -14,11 +14,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CottonSketchPenチーム",
+  title: "4ZIGEN",
   description:
     "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。持ち運びに便利で、環境に優しい持続可能な製品を提供し、旅行時の衣類や梱包材の悩みを解決します。",
   openGraph: {
-    title: "CottonSketchPenチーム",
+    title: "4ZIGEN",
     description:
       "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。",
     url: "https://iiiexhibition2024kamashi.vercel.app",
