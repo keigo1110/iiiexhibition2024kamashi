@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link';
+import Script from 'next/script';
 
 type Artwork = {
   id: number;
@@ -19,6 +20,7 @@ type Member = {
   name: string;
   role: string;
   image: string;
+  url: string;
 }
 
 type Workshop = {
@@ -38,10 +40,10 @@ const artworks: Artwork[] = [
 ]
 
 const members: Member[] = [
-  { id: 1, name: "岡　空来", role: "建築, 空気構造", image: "/members/oka.jpg" },
-  { id: 2, name: "金澤政宜", role: "ロボティクス, ヒューマノイドロボット", image: "/members/kanazawa.jpg" },
-  { id: 3, name: "中田裕紀", role: "コンピュータサイエンス, 群ロボット", image: "/members/nakata.jpg" },
-  { id: 4, name: "南田桂吾", role: "ロボティクス, CV", image: "/members/minamida.jpg" },
+  { id: 1, name: "岡　空来", role: "建築, 空気構造", image: "/members/oka.jpg", url: "#" },
+  { id: 2, name: "金澤政宜", role: "ロボティクス, ヒューマノイドロボット", image: "/members/kanazawa.jpg", url: "https://kanassi.info/" },
+  { id: 3, name: "中田裕紀", role: "コンピュータサイエンス, 群ロボット", image: "/members/nakata.jpg", url: "https://yuki-nakata.org/" },
+  { id: 4, name: "南田桂吾", role: "ロボティクス, CV", image: "/members/minamida.jpg", url: "https://keigominamida.com/" },
 ]
 
 const workshop: Workshop = {
@@ -67,25 +69,78 @@ export function ExhibitionPageComponent() {
     return () => clearInterval(timer)
   }, [])
 
+  // JSON-LDを定義
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ExhibitionEvent",
+    "name": "4ZIGEN | 東京大学制作展2024『付いて離れて』",
+    "description": "4ZIGENによる革新的な作品展示。CottonSketchPen、覗香、Geocussionなど、持続可能な未来を提案する体験型作品を展示します。",
+    "image": "https://iiiexhibition2024kamashi.vercel.app/wataame.jpeg",
+    "url": "https://iiiexhibition2024kamashi.vercel.app",
+    "organizer": {
+      "@type": "Organization",
+      "name": "4ZIGEN",
+      "url": "https://4zigenhp.vercel.app/"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY",
+      "availability": "https://schema.org/InStock"
+    },
+    "performer": shuffledMembers.map(member => ({
+      "@type": "Person",
+      "name": member.name,
+      "jobTitle": member.role
+    })),
+    "workFeatured": artworks.map(artwork => ({
+      "@type": "CreativeWork",
+      "name": artwork.title,
+      "description": artwork.description,
+      "creator": {
+        "@type": "Organization",
+        "name": "4ZIGEN"
+      }
+    }))
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <Script id="json-ld" type="application/ld+json" strategy="afterInteractive">
+        {JSON.stringify(jsonLd)}
+      </Script>
+
       <header className="bg-black bg-opacity-50 backdrop-blur-md fixed w-full z-10">
         <div className="container mx-auto px-4 py-6 flex justify-between items-center">
           <h1>
             <Link
               href="/"
               className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 hover:opacity-80 transition duration-300"
+              aria-label="4ZIGEN ホームページ"
             >
               4ZIGEN
             </Link>
           </h1>
-          <nav>
-            <ul className="flex space-x-6">
+          <nav className="flex items-center" aria-label="メインナビゲーション">
+            <ul className="flex space-x-6 mr-6">
               <li><a href="#overview" className="text-gray-300 hover:text-white transition duration-300">概要</a></li>
+              <li><a href="#video" className="text-gray-300 hover:text-white transition duration-300">動画</a></li>
               <li><a href="#workshop" className="text-gray-300 hover:text-white transition duration-300">ワークショップ</a></li>
               <li><a href="#artworks" className="text-gray-300 hover:text-white transition duration-300">作品</a></li>
               <li><a href="#members" className="text-gray-300 hover:text-white transition duration-300">メンバー</a></li>
             </ul>
+            <a
+              href="https://4zigenhp.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-2 rounded-lg font-medium hover:from-purple-600 hover:to-pink-700 transition duration-300 transform hover:scale-105 shadow-lg flex items-center"
+              aria-label="4ZIGENチームサイトへ移動"
+            >
+              <span>チームサイト</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </nav>
         </div>
       </header>
@@ -142,6 +197,21 @@ export function ExhibitionPageComponent() {
           </p>
         </section>
 
+        <section id="video" className="container mx-auto px-4 py-16 text-center">
+          <h2 className="text-3xl font-bold mb-8">全作品まとめ動画</h2>
+          <div className="aspect-video w-full max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/8nh0nSSK2EM"
+              title="全作品まとめ動画"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        </section>
+
         <section id="workshop" className="container mx-auto px-4 py-16">
           <h2 className="text-3xl font-bold text-center mb-8">ワークショップ</h2>
           <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
@@ -150,6 +220,9 @@ export function ExhibitionPageComponent() {
                 src={workshop.image}
                 alt={workshop.title}
                 className="w-full mx-auto aspect-video object-contain p-4"
+                loading="lazy"
+                width={800}
+                height={450}
               />
             </div>
             <div className="p-8">
@@ -181,8 +254,11 @@ export function ExhibitionPageComponent() {
               >
                 <img
                   src={artwork.image}
-                  alt={artwork.title}
+                  alt={`${artwork.title} - 4ZIGEN作品`}
                   className="w-full h-full object-cover transition duration-300 group-hover:scale-110"
+                  loading={index < 3 ? "eager" : "lazy"}
+                  width={500}
+                  height={300}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -212,11 +288,20 @@ export function ExhibitionPageComponent() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300"
                 >
-                  <img src={member.image} alt={member.name} className="w-full h-64 object-cover" />
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
-                    <p className="text-gray-400">{member.role}</p>
-                  </div>
+                  <a href={member.url} target="_blank" rel="noopener noreferrer" className="block">
+                    <img
+                      src={member.image}
+                      alt={`${member.name} - 4ZIGENメンバー`}
+                      className="w-full h-64 object-cover"
+                      loading={index < 2 ? "eager" : "lazy"}
+                      width={300}
+                      height={300}
+                    />
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                      <p className="text-gray-400">{member.role}</p>
+                    </div>
+                  </a>
                 </motion.div>
               ))}
             </div>
@@ -226,8 +311,8 @@ export function ExhibitionPageComponent() {
 
       <footer className="bg-black text-gray-400 py-12">
         <div className="container mx-auto px-4 text-center">
-          <p>&copy; 2024 4ZIGEN All rights reserved.</p>
-          <p className="mt-2">お問い合わせ: <a href="mailto:keigo-minamida@g.ecc.u-tokyo.ac.jp" className="hover:text-white transition duration-300">keigo-minamida@g.ecc.u-tokyo.ac.jp</a></p>
+          <p className="text-center">&copy; {new Date().getFullYear()} 4ZIGEN All rights reserved.</p>
+          <p className="mt-2">お問い合わせ: <a href="mailto:kamashigsii@gmail.com" className="hover:text-white transition duration-300" aria-label="メールでお問い合わせ">kamashigsii@gmail.com</a></p>
         </div>
       </footer>
 
@@ -239,7 +324,13 @@ export function ExhibitionPageComponent() {
                 <DialogTitle className="text-2xl font-bold">{selectedArtwork.title}</DialogTitle>
                 <DialogDescription className="text-gray-400">{selectedArtwork.artist}</DialogDescription>
               </DialogHeader>
-              <img src={selectedArtwork.image} alt={selectedArtwork.title} className="w-full h-64 object-cover rounded-md mb-4" />
+              <img
+                src={selectedArtwork.image}
+                alt={selectedArtwork.title}
+                className="w-full h-64 object-cover rounded-md mb-4"
+                width={600}
+                height={400}
+              />
               <p className="text-gray-300">{selectedArtwork.description}</p>
             </>
           )}

@@ -14,24 +14,47 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "4ZIGEN",
+  title: "4ZIGEN | 東京大学制作展2024『付いて離れて』",
   description:
-    "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。持ち運びに便利で、環境に優しい持続可能な製品を提供し、旅行時の衣類や梱包材の悩みを解決します。",
+    "4ZIGENは東京大学制作展2024『付いて離れて』に参加。CottonSketchPen、覗香、Geocussion、Puflica、Protophysica、Metransferなど革新的な作品を展示。廃棄物の再利用、インタラクティブな体験を通じて持続可能な未来を提案します。",
+  keywords: ["4ZIGEN", "東京大学制作展", "CottonSketchPen", "アート", "テクノロジー", "インタラクティブ", "持続可能性", "わたあめ機", "展示会"],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  viewport: "width=device-width, initial-scale=1",
   openGraph: {
-    title: "4ZIGEN",
+    type: "website",
+    locale: "ja_JP",
+    title: "4ZIGEN | 東京大学制作展2024『付いて離れて』作品展示",
     description:
-      "CottonSketchPenは、プラスチックボトルなどの廃棄物をその場でコットン状の素材に変えるポータブルデバイスです。",
+      "4ZIGENが東京大学制作展2024に出展する革新的作品群のご紹介。CottonSketchPen、覗香、Geocussionほか、持続可能な未来を提案する体験型作品を展示します。",
     url: "https://iiiexhibition2024kamashi.vercel.app",
+    siteName: "4ZIGEN",
     images: [{
-      url: "/public/wataame.jpeg",
-      width: 800,
-      height: 600,
-      alt: "CottonSketchPenデバイスの画像",
+      url: "https://iiiexhibition2024kamashi.vercel.app/wataame.jpeg",
+      width: 1200,
+      height: 630,
+      alt: "4ZIGEN作品展示",
+      type: "image/jpeg",
     }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "4ZIGEN | 東京大学制作展2024",
+    description:
+      "4ZIGENが東京大学制作展に出展する革新的作品群のご紹介。持続可能な未来を提案する体験型作品を展示します。",
+    images: ["https://iiiexhibition2024kamashi.vercel.app/wataame.jpeg"],
   },
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
+  alternates: {
+    canonical: "https://iiiexhibition2024kamashi.vercel.app",
+  },
+  themeColor: "#6D28D9",
 };
 
 export default function RootLayout({
