@@ -1,0 +1,9 @@
+Contact: mailto:kamashigsii@gmail.com
+Preferred-Languages: ja, en
+Canonical: https://iiiexhibition2024kamashi.vercel.app/.well-known/security.txt
+Policy: https://4zigenhp.vercel.app/security-policy
+Expires: 2025-12-31T23:59:59.000Z
+
+# 4ZIGEN Exhibition Security Information
+# このサイトは4ZIGENの東京大学制作展2024作品展示サイトです
+# セキュリティに関するお問い合わせは上記連絡先までお願いします

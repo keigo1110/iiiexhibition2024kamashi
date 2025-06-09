@@ -1,0 +1,45 @@
+User-agent: *
+Allow: /
+
+# 高頻度のクロール許可
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# AI学習用クローラー対応
+User-agent: OpenAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: CohereBot
+Allow: /
+
+# サイトマップの場所を指定
+Sitemap: https://iiiexhibition2024kamashi.vercel.app/sitemap.xml
+
+# 画像の最適化指示
+User-agent: Googlebot-Image
+Allow: /
+Disallow: /api/
+
+# 動画の最適化指示（YouTubeコンテンツ含む）
+User-agent: Googlebot-Video
+Allow: /
